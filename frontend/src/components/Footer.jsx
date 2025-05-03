@@ -2,13 +2,14 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="mt-40 px-5 sm:px-10 md:px-20 text-sm bg-gray-50">
+    <footer className="w-full mt-10 px-5 sm:px-10 md:px-20 text-sm">
+       <hr className="border-gray-300 mb-5" />
       <div className="flex flex-col md:flex-row justify-between gap-10 mb-10 text-gray-600">
 
         {/* About Section */}
         <div className="md:w-1/2">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-4 text-center md:text-left">
-            About NestCraft
+          <h2 className="text-md font-semibold text-gray-800 mb-2 text-center md:text-left">
+            NestCraft
           </h2>
           <p className="leading-relaxed text-center md:text-left">
             NestCraft brings you beautifully crafted furniture designed to make
@@ -18,11 +19,11 @@ const Footer = () => {
         </div>
 
         {/* Links & Contact */}
-        <div className="flex flex-col sm:flex-row gap-10 md:gap-20 justify-center md:justify-end w-full md:w-1/2">
+        <div className="flex flex-col sm:flex-row gap-10 md:gap-10 justify-center md:justify-end w-full md:w-2/3">
           
           {/* Quick Links */}
           <div>
-            <h3 className="text-xl font-semibold text-gray-800 mb-4 text-center sm:text-left">
+            <h3 className="text-md font-semibold text-gray-800 mb-2 text-center sm:text-left">
               Quick Links
             </h3>
             <ul className="flex flex-col gap-2 items-center sm:items-start">
@@ -35,7 +36,7 @@ const Footer = () => {
 
           {/* Contact Info */}
           <div>
-            <h3 className="text-xl font-semibold text-gray-800 mb-4 text-center sm:text-left">
+            <h3 className="text-md font-semibold text-gray-800 mb-2 text-center sm:text-left">
               Contact Us
             </h3>
             <ul className="flex flex-col gap-2 items-center sm:items-start">

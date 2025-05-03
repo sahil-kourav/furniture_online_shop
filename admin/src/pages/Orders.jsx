@@ -1,232 +1,177 @@
-// import React from 'react'
-// import { useEffect } from 'react'
-// import { useState } from 'react'
-// import axios from 'axios'
-// import { backendUrl, currency } from '../App'
-// import { toast } from 'react-toastify'
-// import { assets } from '../assets/assets'
+// import React, { useEffect, useState } from "react";
+// import axios from "axios";
+// import { backendUrl, currency } from "../App";
+// import { toast } from "react-toastify";
+// import { assets } from "../assets/assets";
 
 // const Orders = ({ token }) => {
-
-//   const [orders, setOrders] = useState([])
-
-//   const fetchAllOrders = async () => {
-
-//     if (!token) {
-//       return null;
-//     }
-
-//     try {
-
-//       const response = await axios.post(backendUrl + '/api/order/list', {}, { headers: { token } })
-//       if (response.data.success) {
-//         setOrders(response.data.orders.reverse())
-//       } else {
-//         toast.error(response.data.message)
-//       }
-
-//     } catch (error) {
-//       toast.error(error.message)
-//     }
-
-//   }
-
-//   const statusHandler = async ( event, orderId ) => {
-//     try {
-//       const response = await axios.post(backendUrl + '/api/order/status' , {orderId, status:event.target.value}, { headers: {token}})
-//       if (response.data.success) {
-//         await fetchAllOrders()
-//       }
-//     } catch (error) {
-//       console.log(error)
-//       toast.error(response.data.message)
-//     }
-//   }
-
-//   useEffect(() => {
-//     fetchAllOrders();
-//   }, [token])
-
-//   return (
-//     <div>
-//       <h3>Order Page</h3>
-//       <div>
-//         {
-//           orders.map((order, index) => (
-//             <div className='grid grid-cols-1 sm:grid-cols-[0.5fr_2fr_1fr] lg:grid-cols-[0.5fr_2fr_1fr_1fr_1fr] gap-3 items-start border-2 border-gray-200 p-5 md:p-8 my-3 md:my-4 text-xs sm:text-sm text-gray-700' key={index}>
-//               <img className='w-12' src={assets.parcel_icon} alt="" />
-//               <div>
-//                 <div>
-//                   {order.items.map((item, index) => {
-//                     if (index === order.items.length - 1) {
-//                       return <p className='py-0.5' key={index}> Product: {item.name} x Quantity: {item.quantity} <span> {item.size} </span> </p>
-//                     }
-//                     else {
-//                       return <p className='py-0.5' key={index}> {item.name} x {item.quantity} <span> {item.size} </span> ,</p>
-//                     }
-//                   })}
-//                 </div>
-//                 <p className='mt-3 mb-2 font-medium'>{order.address.firstName + " " + order.address.lastName}</p>
-//                 <div className='text-sm sm:text-[15px]'>
-//                   <p>{order.address.street + ","}</p>
-//                   <p>{order.address.city + ", " + order.address.state + ", " + order.address.country + ", " + order.address.zipcode}</p>
-//                   <p>{order.address.phone + ", "  + order.address.email}</p>
-//                 </div>
-//               </div>
-//               <div>
-//                 <p className='text-sm sm:text-[15px]'>Items : {order.items.length}</p>
-//                 <p className='mt-3'>Payment Method : {order.paymentMethod}</p>
-//                 <p>Payment : { order.payment ? 'Done' : 'Pending' }</p>
-//                 <p>Order Date : {new Date(order.date).toLocaleDateString()}</p>
-//               </div>
-//               <p className='text-sm sm:text-[15px]'>{currency}{order.amount}</p>
-//               <select onChange={(event)=>statusHandler(event,order.id)} value={order.status} className='p-2 font-semibold'>
-//                 <option value="Order Placed">Order Placed</option>
-//                 <option value="Packing">Packing</option>
-//                 <option value="Shipped">Shipped</option>
-//                 <option value="Out for delivery">Out for delivery</option>
-//                 <option value="Delivered">Delivered</option>
-//                 <option value="Rejected">Rejected</option>
-//               </select>
-//             </div>
-//           ))
-//         }
-//       </div>
-//     </div>
-//   )
-// }
-
-// export default Orders
-
-// import React, { useEffect, useState } from 'react'
-// import axios from 'axios'
-// import { backendUrl, currency } from '../App'
-// import { toast } from 'react-toastify'
-// import { assets } from '../assets/assets'
-
-// const Orders = ({ token }) => {
-//   const [orders, setOrders] = useState([])
+//   const [orders, setOrders] = useState([]);
 
 //   const fetchAllOrders = async () => {
 //     if (!token) return;
 
 //     try {
-//       const response = await axios.post(backendUrl + '/api/order/list', {}, { headers: { token } })
+//       const response = await axios.post(
+//         backendUrl + "/api/order/list",
+//         {},
+//         { headers: { token } }
+//       );
 //       if (response.data.success) {
-//         setOrders(response.data.orders.reverse())
+//         setOrders(response.data.orders.reverse());
+//         console.log("Fetched Orders:", response.data.orders); // Log the fetched orders
 //       } else {
-//         toast.error(response.data.message)
+//         toast.error(response.data.message);
 //       }
 //     } catch (error) {
-//       toast.error(error.message)
+//       toast.error(error.message);
 //     }
-//   }
+//   };
 
 //   const statusHandler = async (event, orderId) => {
 //     try {
 //       const response = await axios.post(
-//         backendUrl + '/api/order/status',
+//         backendUrl + "/api/order/status",
 //         { orderId, status: event.target.value },
 //         { headers: { token } }
-//       )
+//       );
 //       if (response.data.success) {
-//         await fetchAllOrders()
+//         await fetchAllOrders();
 //       }
 //     } catch (error) {
-//       toast.error(error.message)
+//       toast.error(error.message);
 //     }
-//   }
+//   };
 
 //   const updatePaymentStatus = async (orderId) => {
 //     try {
 //       const response = await axios.put(
-//         backendUrl + '/api/order/update-payment-status',
+//         backendUrl + "/api/order/update-payment-status",
 //         { orderId, payment: "Paid" },
 //         { headers: { token } }
-//       )
+//       );
+//       // console.log("Update Payment Response:", response.data); // Log this response for debugging
+
 //       if (response.data.success) {
-//         toast.success("Payment status updated")
-//         fetchAllOrders()
+//         toast.success("Payment status updated");
+//         await fetchAllOrders(); // Refresh orders after updating payment status
 //       } else {
-//         toast.error(response.data.message)
+//         toast.error(response.data.message);
 //       }
 //     } catch (error) {
-//       toast.error(error.message)
+//       toast.error(error.message);
 //     }
-//   }
+//   };
 
 //   useEffect(() => {
 //     fetchAllOrders();
-//   }, [token])
+//   }, [token]);
 
 //   return (
 //     <div>
 //       <h3>Order Page</h3>
 //       <div>
-//         {
-//           orders.map((order, index) => (
-//             <div className='grid grid-cols-1 sm:grid-cols-[0.5fr_2fr_1fr] lg:grid-cols-[0.5fr_2fr_1fr_1fr_1fr] gap-3 items-start border-2 border-gray-200 p-5 md:p-8 my-3 md:my-4 text-xs sm:text-sm text-gray-700' key={index}>
-//               <img className='w-12' src={assets.parcel_icon} alt="" />
+//         {orders.map((order, index) => (
+//           <div
+//             className="grid grid-cols-1 sm:grid-cols-[0.5fr_2fr_1fr] lg:grid-cols-[0.5fr_2fr_1fr_1fr_1fr] gap-3 items-start border-2 border-gray-200 p-5 md:p-8 my-3 md:my-4 text-xs sm:text-sm text-gray-700"
+//             key={index}
+//           >
+//             <img className="w-12" src={assets.parcel_icon} alt="" />
+//             <div>
 //               <div>
-//                 <div>
-//                   {order.items.map((item, index) => (
-//                     <p className='py-0.5' key={index}>
-//                       {item.name} x {item.quantity} <span>{item.size}</span>{index !== order.items.length - 1 && ','}
-//                     </p>
-//                   ))}
-//                 </div>
-//                 <p className='mt-3 mb-2 font-medium'>{order.address.firstName + " " + order.address.lastName}</p>
-//                 <div className='text-sm sm:text-[15px]'>
-//                   <p>{order.address.street + ","}</p>
-//                   <p>{order.address.city + ", " + order.address.state + ", " + order.address.country + ", " + order.address.zipcode}</p>
-//                   <p>{order.address.phone + ", " + order.address.email}</p>
-//                 </div>
+//                 {order.items.map((item, index) => (
+//                   <p className="py-0.5 text-sm sm:text-[16px]" key={index}>
+//                     {item.name} <br/>
+//                     <span>Quantity: {item.quantity}</span>
+//                     {index !== order.items.length - 1 && ","}
+//                   </p>
+//                 ))}
 //               </div>
-//               <div>
-//                 <p className='text-sm sm:text-[15px]'>Items: {order.items.length}</p>
-//                 <p className='mt-2'>Payment Method: {order.paymentMethod}</p>
-
-//                 {/* Show payment status or "Mark as Paid" button depending on payment method */}
-//                 {order.paymentMethod === "Razorpay" ? (
-//                   <div>
-//                     <p>Payment: {order.payment ? 'Paid' : 'Pending'}</p>
-//                     <p>Payment Status: {order.payment || 'N/A'}</p>
-//                   </div>
-//                 ) : null}
-
-//                 {order.paymentMethod === "COD" && order.payment !== "Paid" && (
-//                   <button
-//                     className='mt-2 bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600'
-//                     onClick={() => updatePaymentStatus(order.id)}
-//                   >
-//                     Mark as Paid
-//                   </button>
-//                 )}
-
-//                 <p>Order Date: {new Date(order.date).toLocaleDateString()}</p>
+//               <p className="mt-3 mb-2 font-medium">
+//                 {order.address.firstName + " " + order.address.lastName}
+//               </p>
+//               <div className="text-sm sm:text-[15px]">
+//                 <p>{order.address.street + ","}</p>
+//                 <p>
+//                   {order.address.city +
+//                     ", " +
+//                     order.address.state +
+//                     ", " +
+//                     order.address.country +
+//                     ", " +
+//                     order.address.zipcode}
+//                 </p>
+//                 <p>{order.address.phone + ", " + order.address.email}</p>
 //               </div>
-//               <p className='text-sm sm:text-[15px]'>{currency}{order.amount}</p>
-//               <select
-//                 onChange={(event) => statusHandler(event, order.id)}
-//                 value={order.status}
-//                 className='p-2 font-semibold'
-//               >
-//                 <option value="Order Placed">Order Placed</option>
-//                 <option value="Packing">Packing</option>
-//                 <option value="Shipped">Shipped</option>
-//                 <option value="Out for delivery">Out for delivery</option>
-//                 <option value="Delivered">Delivered</option>
-//                 <option value="Rejected">Rejected</option>
-//               </select>
 //             </div>
-//           ))
-//         }
+//             <div>
+//               <p className="text-sm sm:text-[15px]">
+//                 Items: {order.items.length}
+//               </p>
+//               <p className="mt-2">Payment Method: {order.paymentMethod}</p>
+
+//               {/* Show payment status or "Mark as Paid" button depending on payment method */}
+//               {order.paymentMethod === "Razorpay" ? (
+//                 <div>
+//                   <p>
+//                     Payment: {order.payment === "Paid" ? "Paid" : "Pending"}
+//                   </p>
+//                   <p>Payment Status: {order.payment || 'N/A'}</p>
+//                 </div>
+//               ) : null}
+
+//               {order.paymentMethod === "COD" && order.payment !== "Paid" && (
+//                 <button
+//                   className="mt-2 mb-2 bg-gray-700 text-white px-3 py-1 rounded hover:bg-gray-600"
+//                   onClick={() => updatePaymentStatus(order.id)}
+//                 >
+//                   Mark as Paid
+//                 </button>
+//               )}
+
+//               {order.paymentMethod === "COD" && order.payment === "Paid" && (
+//                 <p>Payment Status: Paid</p>
+//               )}
+
+//               <p>Order Date: {new Date(order.date).toLocaleDateString()}</p>
+//             </div>
+//             <p className="text-sm sm:text-[15px]">
+//               {currency}
+//               {order.amount}
+//             </p>
+//             <select
+//               onChange={(event) => statusHandler(event, order.id)}
+//               value={order.status}
+//               className="p-2 font-semibold"
+//             >
+//               <option value="Order Placed">Order Placed</option>
+//               <option value="Packing">Packing</option>
+//               <option value="Shipped">Shipped</option>
+//               <option value="Out for delivery">Out for delivery</option>
+//               <option value="Delivered">Delivered</option>
+//               <option value="Rejected">Rejected</option>
+//             </select>
+//           </div>
+//         ))}
 //       </div>
 //     </div>
-//   )
-// }
+//   );
+// };
 
-// export default Orders
+// export default Orders;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 import React, { useEffect, useState } from "react";
 import axios from "axios";
@@ -239,56 +184,48 @@ const Orders = ({ token }) => {
 
   const fetchAllOrders = async () => {
     if (!token) return;
-
     try {
-      const response = await axios.post(
-        backendUrl + "/api/order/list",
-        {},
-        { headers: { token } }
-      );
-      if (response.data.success) {
-        setOrders(response.data.orders.reverse());
-        console.log("Fetched Orders:", response.data.orders); // Log the fetched orders
+      const res = await axios.post(`${backendUrl}/api/order/list`, {}, {
+        headers: { token }
+      });
+      if (res.data.success) {
+        setOrders(res.data.orders.reverse());
       } else {
-        toast.error(response.data.message);
+        toast.error(res.data.message);
       }
-    } catch (error) {
-      toast.error(error.message);
-    }
-  };
-
-  const statusHandler = async (event, orderId) => {
-    try {
-      const response = await axios.post(
-        backendUrl + "/api/order/status",
-        { orderId, status: event.target.value },
-        { headers: { token } }
-      );
-      if (response.data.success) {
-        await fetchAllOrders();
-      }
-    } catch (error) {
-      toast.error(error.message);
+    } catch (err) {
+      toast.error(err.message);
     }
   };
 
   const updatePaymentStatus = async (orderId) => {
     try {
-      const response = await axios.put(
-        backendUrl + "/api/order/update-payment-status",
-        { orderId, payment: "Paid" },
-        { headers: { token } }
-      );
-      console.log("Update Payment Response:", response.data); // Log this response for debugging
+      const res = await axios.put(`${backendUrl}/api/order/update-payment-status`, {
+        orderId,
+        payment: "Paid"
+      }, { headers: { token } });
 
-      if (response.data.success) {
-        toast.success("Payment status updated");
-        await fetchAllOrders(); // Refresh orders after updating payment status
+      if (res.data.success) {
+        toast.success("Payment marked as Paid");
+        fetchAllOrders();
       } else {
-        toast.error(response.data.message);
+        toast.error(res.data.message);
       }
-    } catch (error) {
-      toast.error(error.message);
+    } catch (err) {
+      toast.error(err.message);
+    }
+  };
+
+  const statusHandler = async (e, orderId) => {
+    try {
+      const res = await axios.post(`${backendUrl}/api/order/status`, {
+        orderId,
+        status: e.target.value
+      }, { headers: { token } });
+
+      if (res.data.success) fetchAllOrders();
+    } catch (err) {
+      toast.error(err.message);
     }
   };
 
@@ -297,92 +234,111 @@ const Orders = ({ token }) => {
   }, [token]);
 
   return (
-    <div>
-      <h3>Order Page</h3>
-      <div>
-        {orders.map((order, index) => (
-          <div
-            className="grid grid-cols-1 sm:grid-cols-[0.5fr_2fr_1fr] lg:grid-cols-[0.5fr_2fr_1fr_1fr_1fr] gap-3 items-start border-2 border-gray-200 p-5 md:p-8 my-3 md:my-4 text-xs sm:text-sm text-gray-700"
-            key={index}
-          >
-            <img className="w-12" src={assets.parcel_icon} alt="" />
-            <div>
-              <div>
-                {order.items.map((item, index) => (
-                  <p className="py-0.5 text-sm sm:text-[16px]" key={index}>
-                    {item.name} <br/>
-                    <span>Quantity: {item.quantity}</span>
-                    {index !== order.items.length - 1 && ","}
-                  </p>
-                ))}
-              </div>
-              <p className="mt-3 mb-2 font-medium">
-                {order.address.firstName + " " + order.address.lastName}
-              </p>
-              <div className="text-sm sm:text-[15px]">
-                <p>{order.address.street + ","}</p>
-                <p>
-                  {order.address.city +
-                    ", " +
-                    order.address.state +
-                    ", " +
-                    order.address.country +
-                    ", " +
-                    order.address.zipcode}
-                </p>
-                <p>{order.address.phone + ", " + order.address.email}</p>
-              </div>
-            </div>
-            <div>
-              <p className="text-sm sm:text-[15px]">
-                Items: {order.items.length}
-              </p>
-              <p className="mt-2">Payment Method: {order.paymentMethod}</p>
+    <div className="px-4 md:px-10 py-6 bg-gray-50 min-h-screen">
+      <h2 className="text-3xl font-bold text-gray-800 mb-8">Order History</h2>
 
-              {/* Show payment status or "Mark as Paid" button depending on payment method */}
-              {order.paymentMethod === "Razorpay" ? (
-                <div>
-                  <p>
-                    Payment: {order.payment === "Paid" ? "Paid" : "Pending"}
-                  </p>
-                  <p>Payment Status: {order.payment || 'N/A'}</p>
-                </div>
-              ) : null}
-
-              {order.paymentMethod === "COD" && order.payment !== "Paid" && (
-                <button
-                  className="mt-2 mb-2 bg-gray-700 text-white px-3 py-1 rounded hover:bg-gray-600"
-                  onClick={() => updatePaymentStatus(order.id)}
-                >
-                  Mark as Paid
-                </button>
-              )}
-
-              {order.paymentMethod === "COD" && order.payment === "Paid" && (
-                <p>Payment Status: Paid</p>
-              )}
-
-              <p>Order Date: {new Date(order.date).toLocaleDateString()}</p>
-            </div>
-            <p className="text-sm sm:text-[15px]">
-              {currency}
-              {order.amount}
-            </p>
-            <select
-              onChange={(event) => statusHandler(event, order.id)}
-              value={order.status}
-              className="p-2 font-semibold"
+      {orders.length === 0 ? (
+        <p className="text-center text-gray-500 text-base">No orders placed yet.</p>
+      ) : (
+        <div className="space-y-6">
+          {orders.map((order, idx) => (
+            <div
+              key={idx}
+              className="bg-white rounded-xl shadow-sm border border-gray-200 transition hover:shadow-md"
             >
-              <option value="Order Placed">Order Placed</option>
-              <option value="Packing">Packing</option>
-              <option value="Shipped">Shipped</option>
-              <option value="Out for delivery">Out for delivery</option>
-              <option value="Delivered">Delivered</option>
-              <option value="Rejected">Rejected</option>
-            </select>
-          </div>
-        ))}
-      </div>
+              <div className="p-5 sm:p-6 grid grid-cols-1 md:grid-cols-[60px_1fr] gap-4">
+                
+                {/* Icon */}
+                <div className="flex justify-center items-start">
+                  <img
+                    src={assets.parcel_icon}
+                    alt="Parcel"
+                    className="w-12 h-12 object-contain"
+                  />
+                </div>
+
+                {/* Order Content */}
+                <div className="space-y-5">
+                  
+                  {/* Ordered Items */}
+                  <div>
+                    <h4 className="text-lg font-semibold text-gray-700 mb-2">Items Ordered</h4>
+                    <ul className="list-disc list-inside text-gray-600 text-sm space-y-1">
+                      {order.items.map((item, i) => (
+                        <li key={i}>
+                          <strong>{item.name}</strong> — Quantity: {item.quantity}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Shipping Info */}
+                  <div className="border-t pt-4">
+                    <h4 className="text-lg font-semibold text-gray-700 mb-1">Shipping Address</h4>
+                    <div className="text-gray-600 text-sm space-y-0.5">
+                      <p><strong>{order.address.firstName} {order.address.lastName}</strong></p>
+                      <p>{order.address.street}</p>
+                      <p>{order.address.city}, {order.address.state} {order.address.zipcode}</p>
+                      <p>{order.address.country}</p>
+                      <p>📞 {order.address.phone}</p>
+                      <p>✉️ {order.address.email}</p>
+                      <p className="mt-2 text-gray-700 font-medium">Order Date</p>
+                      <p>{new Date(order.date).toLocaleDateString()}</p>
+                    </div>
+                  </div>
+
+                  {/* Payment + Status */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 border-t pt-4">
+                    {/* Amount */}
+                    <div>
+                      <p className="text-gray-700 font-medium">Order Amount</p>
+                      <p className="text-lg font-semibold text-green-600">{currency}{order.amount}</p>
+                    </div>
+
+                    {/* Payment Info */}
+                    <div>
+                      <p className="text-gray-700 font-medium">Payment Method</p>
+                      <p className="text-sm">
+                        {order.paymentMethod} —{" "}
+                        <span className={order.payment === "Paid" ? "text-green-600 font-medium" : "text-red-500 font-medium"}>
+                          {order.payment}
+                        </span>
+                      </p>
+
+                      {order.paymentMethod === "COD" && order.payment !== "Paid" && (
+                        <button
+                          onClick={() => updatePaymentStatus(order.id)}
+                          className="mt-2 bg-blue-600 hover:bg-blue-500 text-white px-4 py-1.5 rounded-md text-sm transition"
+                        >
+                          Mark as Paid
+                        </button>
+                      )}
+                    </div>
+
+                    {/* Status Dropdown */}
+                    <div>
+                      <label className="text-gray-700 font-medium text-sm block mb-1">Order Status</label>
+                      <select
+                        value={order.status}
+                        onChange={(e) => statusHandler(e, order.id)}
+                        className="w-full p-2 rounded-md border-gray-300 text-sm shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                      >
+                        <option value="Order Placed">Order Placed</option>
+                        <option value="Packing">Packing</option>
+                        <option value="Shipped">Shipped</option>
+                        <option value="Out for delivery">Out for delivery</option>
+                        <option value="Delivered">Delivered</option>
+                        <option value="Rejected">Rejected</option>
+                      </select>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

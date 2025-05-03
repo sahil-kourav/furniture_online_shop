@@ -9,7 +9,7 @@ const Product = () => {
   const { products, currency, addToCart } = useContext(ShopContext);
   const [productData, setProductData] = useState(false);
   const [image, setImage] = useState("");
-  const [size, setSize] = useState("");
+  // const [size, setSize] = useState("");
 
   const fetchProductData = async () => {
     console.log("Fetched Products:", products); // LOG 1: Products data
@@ -50,29 +50,35 @@ const Product = () => {
             ))}
           </div>
           <div className="w-full sm:w-[80%]">
-            <img className="w-full h-auto" src={image} alt="" />
+            <img className="w-full h-[80%]" src={image} alt="" />
           </div>
         </div>
 
         {/* -------- Product Info ---------- */}
         <div className="flex-1">
           <h1 className="font-medium text-2xl mt-2">{productData.name}</h1>
-          <p className="mt-2 text-gray-600 text-lg md:w-4/5">
+          <p className="mt-2 text-gray-600 text-lg md:w-5/5">
             {productData.description}
           </p>
-          <p className="mt-2 text-lg">
-            {currency}
-            {productData.price}
+          <p className="mt-2 text-lg text-green-600 font-medium">
+            Special Price
           </p>
-          
+          <p className="mt-0 text-lg font-medium">
+            {new Intl.NumberFormat("en-IN", {
+              style: "currency",
+              currency: "INR",
+              maximumFractionDigits: 0,
+            }).format(productData.price)}
+          </p>
+
           <button
-            onClick={() => addToCart(productData.id, size)}
-            className="bg-black mt-5 text-white px-8 py-3 text-sm active:bg-gray-700"
+            onClick={() => addToCart(productData.id)}
+            className="w-full bg-gray-800 hover:bg-gray-700 mt-5 text-white px-8 py-3 text-sm active:bg-gray-700"
           >
             ADD TO CART
           </button>
           <hr className="mt-8 sm:w-4/5" />
-          <div className="text-sm text-gray-500 mt-5 flex flex-col gap-1">
+          <div className="text-md text-gray-500 mt-5 flex flex-col gap-1">
             <p>✅ 100% authentic and original product</p>
             <p>💵 Cash on Delivery available for your convenience</p>
             <p>🔁 Enjoy hassle-free returns and exchanges within 7 days</p>

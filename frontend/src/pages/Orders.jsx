@@ -45,59 +45,67 @@ const Orders = () => {
   }, [token]);
 
   return (
-    <div className="border-t pt-16">
-      <div className="text-2xl">
+    <div className="border-t pt-16 mb-16">
+      <div className="text-2xl text-center mb-8">
         <Title text1="MY" text2="ORDERS" />
       </div>
 
       {loading && (
-        <p className="text-center my-4 text-gray-500">Loading orders...</p>
+        <p className="text-center my-6 text-gray-500">Loading orders...</p>
       )}
 
       {!loading && orders.length === 0 && (
-        <p className="text-center my-4 text-gray-500">No orders found.</p>
+        <p className="text-center my-6 text-gray-500">No orders found.</p>
       )}
 
-      <div>
+      <div className="space-y-8">
         {orders.map((item, index) => (
           <div
             key={index}
-            className="py-4 border-t border-b text-gray-700 flex flex-col md:flex-row md:items-center md:justify-between gap-4"
+            className="flex flex-col md:flex-row items-around gap-6 border-t pt-6 pb-4 ml-2 mr-2 text-gray-700"
           >
-            <div className="flex items-start gap-6 text-sm">
+            {/* Product Image and Info */}
+            <div className="flex items-center gap-6 flex-1">
               <img
-                className="w-16 h-22 sm:w-18 object-cover"
+                className="w-28 h-44 object-cover rounded-md"
                 src={item.image?.[0] || "/placeholder.png"}
                 alt={item.name}
               />
-              <div>
-                <p className="sm:text-base font-medium">{item.name}</p>
-                <p className="sm:text-base font-medium">
-                  Quantity: {item.quantity}
+              <div className="flex flex-col gap-1 w-full">
+                <p className="text-xl font-semibold">{item.name}</p>
+
+                <p className="text-sm font-medium">
+                  Quantity: <span className="font-semibold">{item.quantity}</span>
                 </p>
-                <p className="mt-2 text-sm font-semibold">
-                  Final Amount: {currency}
-                  {item.amount}
+
+                <p className="text-sm font-medium">
+                  Date: <span className="font-semibold">{new Date(item.date).toDateString()}</span>
                 </p>
-                <p className="mt-1 text-sm font-semibold">
-                  Date: <span>{new Date(item.date).toDateString()}</span>
+                <p className="text-sm font-medium">
+                  Payment: <span className="font-semibold">{item.paymentMethod}</span>
                 </p>
-                <p className="mt-1 text-sm font-semibold">
-                  Payment: <span>{item.paymentMethod}</span>
+                <p className="text-sm font-medium">
+                  Product Price: <span className="font-semibold">{currency}{item.price}</span>
+                </p>
+                <p className="text-sm font-medium">
+                  Total Amount: <span className="font-semibold">{currency}{item.amount}</span>
                 </p>
               </div>
             </div>
-            <div className="md:w-1/2 flex justify-between items-center">
+
+            {/* Order Status and Update Button */}
+            <div className="md:w-1/2 flex justify-between mt-4 items-center ">
               <div className="flex items-center gap-2">
-                <span className="min-w-2 h-2 rounded-full bg-green-500"></span>
-                <p className="text-sm md:text-base">{item.status}</p>
+                <span className="w-2.5 h-2.5 rounded-full bg-green-500"></span>
+                <p className="text-sm font-medium">{item.status}</p>
               </div>
+
               <button
-                onClick={fetchOrders}
-                className="border px-4 py-2 text-sm font-medium rounded-sm hover:bg-gray-100"
-              >
-                Update Orders
-              </button>
+                 onClick={fetchOrders}
+                 className="border px-4 py-2 text-sm font-medium rounded-sm hover:bg-gray-100"
+               >
+                  Refresh Order Status
+               </button>
             </div>
           </div>
         ))}

@@ -23,15 +23,12 @@ const OurPolicy = () => {
   ];
 
   return (
-    <div className="bg-gray-50 py-8 px-4 sm:px-10">
-      <div className='text-3xl text-center py-4'>
-        <Title text1={'WHY SHOP'} text2={'WITH US'} />
-      </div>
+    <div className="py-4 px-4 sm:px-10">
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 text-center">
         {policies.map((item, index) => (
           <div
             key={index}
-            className="bg-white shadow-md rounded-xl p-6 hover:shadow-lg transition-shadow duration-300"
+            className="p-6"
           >
             <img src={item.icon} alt={item.title} className="w-12 h-12 mx-auto mb-4" />
             <h3 className="text-lg font-semibold text-gray-800 mb-2">{item.title}</h3>

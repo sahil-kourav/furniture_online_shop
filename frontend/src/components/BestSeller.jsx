@@ -14,10 +14,10 @@ const BestSeller = () => {
 
   return (
     <div className="my-10">
-      <div className="text-center text-3xl py-8">
-        <div className="text-center px-4 sm:px-6 md:px-8 lg:px-16 py-10">
+      <div className="text-center text-3xl">
+        <div className="text-center px-4 sm:px-6 md:px-8 lg:px-16 py-6">
           <Title text1="BEST" text2="SELLERS" />
-          <p className="max-w-3xl mx-auto mt-5 text-sm sm:text-base md:text-lg text-gray-600 leading-relaxed">
+          <p className="max-w-3xl mx-auto mt-5 text-sm sm:text-base md:text-lg text-gray-500 leading-relaxed">
             Discover our most loved and top-selling products, handpicked by our
             happy customers. Quality meets style.
           </p>

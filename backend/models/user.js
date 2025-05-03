@@ -54,10 +54,10 @@ const User = sequelize.define('User', {
     },
   },
   mobileNumber: {
-    type: DataTypes.STRING(10), // Restrict to 10 characters (digits)
+    type: DataTypes.STRING(10),
     allowNull: false,
     validate: {
-      is: /^[6-9]\d{9}$/, // Indian mobile numbers starting with 6,7,8,9 and followed by 9 digits
+      is: /^[6-9]\d{9}$/,
     },
   },
   password: {

@@ -32,7 +32,7 @@ const Cart = () => {
   return (
     <div className='border-t pt-14'>
 
-      <div className=' text-2xl mb-3'>
+      <div className=' text-xl mb-3'>
         <Title text1={'YOUR'} text2={'CART'} />
       </div>
 
@@ -50,7 +50,6 @@ const Cart = () => {
                     <p className='text-xs sm:text-lg font-medium'>{productData.name}</p>
                     <div className='flex items-center gap-5 mt-2'>
                       <p>{currency}{productData.price}</p>
-                      <p className='px-2 sm:px-3 sm:py-1 border bg-slate-50'>{item.size}</p>
                     </div>
                   </div>
                 </div>
@@ -67,7 +66,7 @@ const Cart = () => {
         <div className='w-full sm:w-[450px]'>
           <CartTotal />
           <div className=' w-full text-end'>
-            <button onClick={() => navigate('/place-order')} className='bg-black text-white text-sm my-8 px-8 py-3'>PROCEED TO CHECKOUT</button>
+            <button onClick={() => navigate('/place-order')} className='bg-black w-full text-white text-sm my-8 px-8 py-3'>PROCEED TO CHECKOUT</button>
           </div>
         </div>
       </div>
