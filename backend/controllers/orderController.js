@@ -5,7 +5,6 @@ import crypto from "crypto";
 
 // Global variables
 const currency = "INR";
-// const deliveryCharge = 0;
 
 // Gateway initialize
 const razorpayInstance = new razorpay({
@@ -17,7 +16,6 @@ const razorpayInstance = new razorpay({
 const placeOrder = async (req, res) => {
   try {
     const { userId, items, amount, address } = req.body;
-    // const finalAmount = Number(amount) + deliveryCharge;
 
     const orderData = {
       userId,
@@ -46,7 +44,6 @@ const placeOrder = async (req, res) => {
 const placeOrderRazorpay = async (req, res) => {
   try {
     const { userId, items, amount, address } = req.body;
-    // const finalAmount = Number(amount) + deliveryCharge;
 
     const orderData = {
       userId,
