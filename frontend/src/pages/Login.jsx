@@ -14,29 +14,41 @@ const Login = () => {
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();
-  
-    // Validate inputs
-    if (!email || !password || (currentState === 'Sign Up' && !name)) {
+
+    // Trim all input fields
+    const trimmedName = name.trim();
+    const trimmedEmail = email.trim();
+    const trimmedPassword = password.trim();
+    const trimmedMobile = mobileNumber.trim();
+
+    // Basic validation
+    if (!trimmedEmail || !trimmedPassword || (currentState === 'Sign Up' && !trimmedName)) {
       toast.error('Please fill in all the fields!');
       return;
     }
-  
-    // Mobile number validation only for Sign Up
-    if (currentState === 'Sign Up' && !mobileNumber) {
-      toast.error('Please enter a valid mobile number');
-      return;
+
+    if (currentState === 'Sign Up') {
+      if (!trimmedMobile) {
+        toast.error('Please enter a valid mobile number');
+        return;
+      }
+
+      if (!/^[6-9]\d{9}$/.test(trimmedMobile)) {
+        toast.error('Please enter a valid 10-digit Indian mobile number');
+        return;
+      }
     }
-  
-    // Validate mobile number only for Sign Up (for Indian mobile numbers, 10 digits)
-    if (currentState === 'Sign Up' && !/^[6-9]\d{9}$/.test(mobileNumber)) {
-      toast.error('Please enter a valid mobile number');
-      return;
-    }
-  
+
     try {
       if (currentState === 'Sign Up') {
-        // Handle Sign Up
-        const response = await axios.post(backendUrl + '/api/user/register', { name, email, mobileNumber, password });
+        // Sign Up request
+        const response = await axios.post(`${backendUrl}/api/user/register`, {
+          name: trimmedName,
+          email: trimmedEmail,
+          mobileNumber: trimmedMobile,
+          password: trimmedPassword,
+        });
+
         if (response.data.success) {
           setToken(response.data.token);
           localStorage.setItem('token', response.data.token);
@@ -45,8 +57,12 @@ const Login = () => {
           toast.error(response.data.message);
         }
       } else {
-        // Handle Login
-        const response = await axios.post(backendUrl + '/api/user/login', { email, password });
+        // Login request
+        const response = await axios.post(`${backendUrl}/api/user/login`, {
+          email: trimmedEmail,
+          password: trimmedPassword,
+        });
+
         if (response.data.success) {
           setToken(response.data.token);
           localStorage.setItem('token', response.data.token);
@@ -56,11 +72,12 @@ const Login = () => {
         }
       }
     } catch (error) {
-      console.log(error);
-      toast.error('Something went wrong, please try again later');
+      console.error(error);
+      const message = error.response?.data?.message || 'Something went wrong, please try again later';
+      toast.error(message);
     }
   };
-  
+
   useEffect(() => {
     if (token) {
       navigate('/');
@@ -94,7 +111,6 @@ const Login = () => {
         required
       />
 
-      {/* Mobile Number Input */}
       {currentState === 'Sign Up' && (
         <input
           onChange={(e) => setMobileNumber(e.target.value)}
@@ -102,7 +118,7 @@ const Login = () => {
           type="text"
           className="w-full px-4 py-3 border border-gray-800 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-gray-500"
           placeholder="Mobile Number"
-          maxLength="10" // Enforcing 10 digits
+          maxLength="10"
           required
         />
       )}
